@@ -1,0 +1,87 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: Backend/package-lock.json
+
+      - name: Install backend dependencies
+        run: cd Backend && npm ci
+
+      - name: Run backend tests
+        run: cd Backend && npm test
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: JusticeHub1/package-lock.json
+
+      - name: Install frontend dependencies
+        run: cd JusticeHub1 && npm ci
+
+      - name: Run frontend linting
+        run: cd JusticeHub1 && npm run lint
+
+      - name: Build frontend
+        run: cd JusticeHub1 && npm run build
+
+  build-and-push:
+    needs: [test-backend, test-frontend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./Backend
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/justicehub-backend:latest
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./JusticeHub1
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/justicehub-frontend:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to production
+        run: |
+          echo "Deployment steps would go here"
+          echo "For example: trigger deployment on Railway/Heroku/Vercel"

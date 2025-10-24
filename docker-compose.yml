@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./Backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/justicehub
+      - JWT_SECRET=your-super-secret-jwt-key
+    depends_on:
+      - mongo
+    networks:
+      - justicehub-network
+    volumes:
+      - ./Backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./JusticeHub1
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - justicehub-network
+
+  mongo:
+    image: mongo:7-jammy
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - justicehub-network
+
+volumes:
+  mongo_data:
+
+networks:
+  justicehub-network:
+    driver: bridge
