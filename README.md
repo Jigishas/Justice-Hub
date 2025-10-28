@@ -9,10 +9,13 @@ This repository contains two main components:
 ### Frontend (JusticeHub1/)
 A modern React application built with Vite, featuring:
 - User authentication and authorization
+![alt text](image.png)
 - Interactive dashboard with search functionality
+![alt text](image-1.png)
 - Educational resources (articles, videos, podcasts, books, toolkits)
 - Actionable items for social justice advocacy
 - Responsive design with Tailwind CSS and Radix UI components
+![alt text](image-2.png)
 
 [View Frontend README](./JusticeHub1/README.md)
 
