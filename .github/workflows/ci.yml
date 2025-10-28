@@ -12,13 +12,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: Backend/package-lock.json
+          cache-dependency-path: ./Backend/package-lock.json
 
       - name: Install backend dependencies
         run: cd Backend && npm ci
@@ -31,13 +34,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: JusticeHub1/package-lock.json
+          cache-dependency-path: ./JusticeHub1/package-lock.json
 
       - name: Install frontend dependencies
         run: cd JusticeHub1 && npm ci
@@ -55,6 +61,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -81,6 +90,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
       - name: Deploy to production
         run: |
           echo "Deployment steps would go here"
