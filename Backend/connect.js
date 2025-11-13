@@ -13,7 +13,7 @@ const db_URI = process.env.db_URI;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173', // Frontend URL
+  origin: 'https://justice-hub-delta.vercel.app', // Frontend URL
   credentials: true
 }));
 
