@@ -1,0 +1,193 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Added styles for justice-section */
+.justice-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.justice-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.justice-content {
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 800;
+}
+
+.section-subtitle {
+  font-size: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+}
+
+.justice-stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 50px 0;
+}
+
+.stat-item {
+  flex: 1;
+  min-width: 200px;
+  margin: 15px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.stat-text {
+  font-size: 1.2rem;
+}
+
+.call-to-action {
+  margin: 50px 0 30px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 15px 40px;
+  background: #ff6b6b;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 50px;
+  margin: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid #ff6b6b;
+}
+
+.cta-button:hover {
+  background: transparent;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  border: 2px solid white;
+}
+
+.cta-button.secondary:hover {
+  background: white;
+  color: #1a2a6c;
+}
+
+.justice-quote {
+  max-width: 800px;
+  margin: 50px auto 0;
+  padding: 30px;
+  font-style: italic;
+  font-size: 1.4rem;
+  border-left: 5px solid #ff6b6b;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0 10px 10px 0;
+}
+
+.quote-author {
+  display: block;
+  text-align: right;
+  margin-top: 15px;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .stat-item {
+    min-width: 150px;
+    padding: 15px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+}
