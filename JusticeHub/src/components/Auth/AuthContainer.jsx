@@ -38,17 +38,20 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
     }, 2000);
   };
 
-  const handleSignupSuccess = () => {
-    // For signup, redirect directly to main page
-    // Clear any existing user state first
-    localStorage.removeItem('user');
-
-    try {
-      navigate("/");
-    } catch (error) {
-      console.error("Navigation error:", error);
-      window.location.href = "/";
-    }
+  const handleSignupSuccess = (userData) => {
+    login(userData);
+    setIsSuccess(true);
+    setTimeout(() => {
+      setFadeOut(true);
+      setTimeout(() => {
+        try {
+          navigate("/");
+        } catch (error) {
+          console.error("Navigation error:", error);
+          window.location.href = "/";
+        }
+      }, 500);
+    }, 2000);
   };
 
   return (
