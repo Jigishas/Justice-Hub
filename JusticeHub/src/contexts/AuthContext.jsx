@@ -26,13 +26,16 @@ export const AuthProvider = ({ children }) => {
             localStorage.removeItem('user');
           }
         } else {
-          setUser(null);
-          localStorage.removeItem('user');
+          // Only clear user if it's a 401 (unauthorized), not other errors
+          if (res.status === 401) {
+            setUser(null);
+            localStorage.removeItem('user');
+          }
+          // For other errors (like 404), don't clear user state
         }
       } catch (error) {
         console.error('Auth verification failed:', error);
-        setUser(null);
-        localStorage.removeItem('user');
+        // Don't clear user on network errors - they might be temporary
       } finally {
         setLoading(false);
       }

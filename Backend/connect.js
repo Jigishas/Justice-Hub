@@ -13,7 +13,7 @@ const db_URI = process.env.db_URI;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'https://justice-hub-delta.vercel.app', // Frontend URL
+  origin: ['https://justice-hub-delta.vercel.app', 'https://justice-hub-pe38.onrender.com'], // Frontend URLs
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

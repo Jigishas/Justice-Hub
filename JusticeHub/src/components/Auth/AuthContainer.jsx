@@ -40,6 +40,9 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
 
   const handleSignupSuccess = () => {
     // For signup, redirect directly to main page
+    // Clear any existing user state first
+    localStorage.removeItem('user');
+
     try {
       navigate("/");
     } catch (error) {
