@@ -43,16 +43,16 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: ./JusticeHub1/package-lock.json
+          cache-dependency-path: ./JusticeHub/package-lock.json
 
       - name: Install frontend dependencies
-        run: cd JusticeHub1 && npm ci
+        run: cd JusticeHub && npm ci
 
       - name: Run frontend linting
-        run: cd JusticeHub1 && npm run lint
+        run: cd JusticeHub && npm run lint
 
       - name: Build frontend
-        run: cd JusticeHub1 && npm run build
+        run: cd JusticeHub && npm run build
 
   build-and-push:
     needs: [test-backend, test-frontend]
@@ -81,22 +81,31 @@ jobs:
       - name: Build and push frontend image
         uses: docker/build-push-action@v5
         with:
-          context: ./JusticeHub1
+          context: ./JusticeHub
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/justicehub-frontend:latest
 
-  deploy:
+  deploy-backend:
     needs: build-and-push
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
-
-      - name: Deploy to production
+      - name: Deploy backend to Render
         run: |
-          echo "Deployment steps would go here"
-          echo "For example: trigger deployment on Railway/Heroku/Vercel"
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            https://api.render.com/v1/services/${{ secrets.RENDER_BACKEND_SERVICE_ID }}/deploys
+
+  deploy-frontend:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy frontend to Vercel
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"name": "${{ secrets.VERCEL_PROJECT_NAME }}", "gitSource": {"type": "github", "repo": "${{ github.repository }}", "ref": "${{ github.sha }}"}}' \
+            https://api.vercel.com/v1/integrations/deploy/${{ secrets.VERCEL_PROJECT_ID }}

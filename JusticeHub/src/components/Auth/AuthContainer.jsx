@@ -39,12 +39,13 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
   };
 
   const handleSignupSuccess = () => {
-    // For signup, show success then switch to login mode
-    setIsSuccess(true);
-    setTimeout(() => {
-      setIsSuccess(false);
-      setActiveForm("login");
-    }, 3000);
+    // For signup, redirect directly to main page
+    try {
+      navigate("/");
+    } catch (error) {
+      console.error("Navigation error:", error);
+      window.location.href = "/";
+    }
   };
 
   return (
