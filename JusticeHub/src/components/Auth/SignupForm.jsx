@@ -36,9 +36,8 @@ export default function SignupForm({ setIsLoading, onSuccess }) {
         const errorData = await res.json();
         throw new Error(errorData.error || 'Registration failed');
       }
-      const data = await res.json();
       setIsLoading(false);
-      onSuccess(data.user);
+      onSuccess();
     } catch (err) {
       setIsLoading(false);
       setError(err.message);

@@ -18,7 +18,7 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
   // For page fade-out before redirect
   const [fadeOut, setFadeOut] = useState(false);
 
-  const handleSuccess = (userData) => {
+  const handleLoginSuccess = (userData) => {
     login(userData);
     setIsSuccess(true);
     setTimeout(() => {
@@ -36,6 +36,15 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
         }
       }, 500);
     }, 2000);
+  };
+
+  const handleSignupSuccess = () => {
+    // For signup, show success then switch to login mode
+    setIsSuccess(true);
+    setTimeout(() => {
+      setIsSuccess(false);
+      setActiveForm("login");
+    }, 3000);
   };
 
   return (
@@ -65,7 +74,7 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
                   >
                     <LoginForm
                       setIsLoading={setIsLoading}
-                      onSuccess={handleSuccess}
+                      onSuccess={handleLoginSuccess}
                     />
                   </motion.div>
                 ) : (
@@ -78,7 +87,7 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
                   >
                     <SignupForm
                       setIsLoading={setIsLoading}
-                      onSuccess={handleSuccess}
+                      onSuccess={handleSignupSuccess}
                     />
                   </motion.div>
                 )}
