@@ -32,7 +32,10 @@ export default function SignupForm({ setIsLoading, onSuccess }) {
         credentials: 'include',
         body: JSON.stringify({ name, email, password }),
       });
-      if (!res.ok) throw new Error('Registration failed');
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Registration failed');
+      }
       const data = await res.json();
       setIsLoading(false);
       onSuccess(data.user);

@@ -21,7 +21,10 @@ export default function LoginForm({ setIsLoading, onSuccess }) {
         credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
-      if (!res.ok) throw new Error('Invalid credentials');
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Invalid credentials');
+      }
       const data = await res.json();
       setIsLoading(false);
       onSuccess(data.user);

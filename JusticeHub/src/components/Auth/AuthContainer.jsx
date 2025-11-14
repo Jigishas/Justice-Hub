@@ -24,10 +24,15 @@ export default function AuthContainer({ initialMode = "signup", onClose, navigat
     setTimeout(() => {
       setFadeOut(true);
       setTimeout(() => {
-        if (onClose) {
-          onClose();
-        } else {
-          navigate("/");
+        try {
+          if (onClose) {
+            onClose();
+          } else {
+            navigate("/");
+          }
+        } catch (error) {
+          console.error("Navigation error:", error);
+          window.location.href = "/";
         }
       }, 500);
     }, 2000);

@@ -14,7 +14,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   origin: 'https://justice-hub-delta.vercel.app', // Frontend URL
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // User Schema
@@ -83,7 +85,7 @@ app.post('/api/auth/register', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
 
     // Set cookie
-    res.cookie('token', token, { httpOnly: true, secure: false, sameSite: 'lax' }); // secure: true in production
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' }); // secure: true in production
 
     res.status(201).json({ message: 'User registered successfully', user: { _id: user._id, name: user.name, email: user.email } });
   } catch (error) {
@@ -112,7 +114,7 @@ app.post('/api/auth/login', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
 
     // Set cookie
-    res.cookie('token', token, { httpOnly: true, secure: false, sameSite: 'lax' }); // secure: true in production
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' }); // secure: true in production
 
     res.json({ message: 'Login successful', user: { _id: user._id, name: user.name, email: user.email } });
   } catch (error) {
