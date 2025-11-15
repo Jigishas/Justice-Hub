@@ -28,7 +28,7 @@ export default function Actions() {
             {action.icon}
             <h3 className="font-bold text-lg text-[#2a4d69] mb-2">{action.title}</h3>
             <p className="text-sm text-[#666] mb-4">{action.desc}</p>
-            <Button onClick={() => window.open(action.link, '_blank')} className="bg-[#e74c3c] hover:bg-[#c0392b] text-white mt-auto">{action.btn}</Button>
+            <Button onClick={() => window.open(action.link, '_blank')} className="bg-[#e74c3c] hover:bg-[#c0392b] text-blue-700 mt-auto">{action.btn}</Button>
           </Card>
         ))}
       </div>
