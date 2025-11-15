@@ -139,7 +139,7 @@ function App() {
                 >
                   Welcome, {user.name ?? user.email ?? "User"}
                 </span>
-                <Button onClick={logout} variant="outline" className="border-white text-blue-700 hover:bg-white hover:text-[#2a4d69] dark:border-[#4b86b4] dark:text-[#4b86b4] dark:hover:bg-[#4b86b4] dark:hover:text-white">
+                <Button onClick={() => { logout(); navigate('/auth'); }} variant="outline" className="border-white text-blue-700 hover:bg-white hover:text-[#2a4d69] dark:border-[#4b86b4] dark:text-[#4b86b4] dark:hover:bg-[#4b86b4] dark:hover:text-white">
                   <FaSignOutAlt className="mr-2" /> Logout
                 </Button>
               </>
