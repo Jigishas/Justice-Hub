@@ -191,7 +191,7 @@ function App() {
                 {action.index === 3 && <FaMicrophone className="text-3xl text-[#4b86b4] mb-4 mx-auto" />}
                 <h3 className="font-bold text-lg text-[#2a4d69] mb-2">{action.title}</h3>
                 <p className="text-sm text-[#666] mb-4">{action.desc}</p>
-                <Button onClick={() => window.open(action.index === 0 || action.index === 1 ? 'https://www.amnestykenya.org/' : action.index === 2 ? 'https://support.eji.org/give/153413/#!/donation/checkout' : 'https://www.change.org/c/ke', '_blank')} className="bg-[#e74c3c] hover:bg-[#c0392b] text-white mt-auto">
+                <Button onClick={() => window.open(action.index === 0 || action.index === 1 ? 'https://www.amnestykenya.org/' : action.index === 2 ? 'https://support.eji.org/give/153413/#!/donation/checkout' : 'https://www.change.org/c/ke', '_blank')} className="mt-auto">
                   {action.index === 0 ? 'Sign Petitions' : action.index === 1 ? 'Find Opportunities' : action.index === 2 ? 'Donate Now' : 'Share Content'}
                 </Button>
               </Card>
@@ -277,11 +277,11 @@ function App() {
           <p className="text-center text-[#666] mb-8 max-w-2xl mx-auto text-lg">Explore our curated collection of educational materials to deepen your understanding of social justice issues and learn how to take action.</p>
           <Tabs defaultValue="articles" className="w-full mt-10">
             <TabsList className="flex justify-center flex-wrap gap-3 mb-8 bg-white rounded-xl p-3 shadow-md border border-[#e7eff6]">
-              <TabsTrigger value="articles" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#e74c3c] text-white hover:bg-[#c0392b]">Articles</TabsTrigger>
-              <TabsTrigger value="videos" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#4b86b4] text-white hover:bg-[#3a6b9c]">Videos</TabsTrigger>
-              <TabsTrigger value="podcasts" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#2a4d69] text-white hover:bg-[#1e3a4d]">Podcasts</TabsTrigger>
-              <TabsTrigger value="books" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#28a745] text-white hover:bg-[#218838]">Books</TabsTrigger>
-              <TabsTrigger value="toolkits" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#fd7e14] text-white hover:bg-[#e8680f]">Toolkits</TabsTrigger>
+              <TabsTrigger value="articles" className="px-6 py-2 rounded-lg font-medium transition-all bg-gray-200 text-gray-800 data-[state=active]:bg-[#e74c3c] data-[state=active]:text-white">Articles</TabsTrigger>
+              <TabsTrigger value="videos" className="px-6 py-2 rounded-lg font-medium transition-all bg-gray-200 text-gray-800 data-[state=active]:bg-[#4b86b4] data-[state=active]:text-white">Videos</TabsTrigger>
+              <TabsTrigger value="podcasts" className="px-6 py-2 rounded-lg font-medium transition-all bg-gray-200 text-gray-800 data-[state=active]:bg-[#2a4d69] data-[state=active]:text-white">Podcasts</TabsTrigger>
+              <TabsTrigger value="books" className="px-6 py-2 rounded-lg font-medium transition-all bg-gray-200 text-gray-800 data-[state=active]:bg-[#28a745] data-[state=active]:text-white">Books</TabsTrigger>
+              <TabsTrigger value="toolkits" className="px-6 py-2 rounded-lg font-medium transition-all bg-gray-200 text-gray-800 data-[state=active]:bg-[#fd7e14] data-[state=active]:text-white">Toolkits</TabsTrigger>
             </TabsList>
             <TabsContent value="articles">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -3,8 +3,8 @@ import PageLayout from '../components/PageLayout';
 export default function About() {
   return (
     <PageLayout>
-      <div className="h-screen flex flex-col lg:flex-row">
-        <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 bg-gradient-to-br from-[#2a4d69] to-[#4b86b4] text-white">
+      <div className="min-h-screen flex flex-col">
+        <div className="w-full flex flex-col justify-center items-center p-8 bg-gradient-to-br from-[#2a4d69] to-[#4b86b4] text-white">
           <div className="text-center max-w-md">
             <h1 className="text-4xl font-bold mb-4">About JusticeHub</h1>
             <p className="text-lg mb-8">
@@ -42,11 +42,11 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className="w-full lg:w-1/2 flex justify-center items-center">
+        <div className="w-full flex justify-center items-center p-8">
           <img
             src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600"
             alt="Justice team collaboration"
-            className="w-full h-full rounded-3xl shadow-2xl object-cover"
+            className="w-full max-w-md h-auto rounded-3xl shadow-2xl object-cover"
           />
         </div>
       </div>
