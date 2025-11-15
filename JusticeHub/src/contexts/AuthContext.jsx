@@ -12,7 +12,6 @@ export const AuthProvider = ({ children }) => {
     if (storedUser && storedRefreshToken && storedAccessToken) {
       const userData = JSON.parse(storedUser);
       const refreshTokenExpiry = localStorage.getItem('refreshTokenExpiry');
-      const accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
 
       // Check if refresh token is still valid (longer expiry)
       if (refreshTokenExpiry && new Date(refreshTokenExpiry) > new Date()) {
