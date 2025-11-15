@@ -1,0 +1,1 @@
+- [x] Remove the condition restricting the welcome message and logout button to the home page in PageLayout.jsx
