@@ -15,7 +15,7 @@ export default function Resources() {
           </h2>
           <p className="text-center text-[#666] mb-8 max-w-2xl mx-auto text-lg">Explore our curated collection of educational materials to deepen your understanding of social justice issues and learn how to take action.</p>
           <Tabs defaultValue="articles" className="w-full mt-10">
-            <TabsList className="flex justify-center flex-wrap gap-3 mb-8 bg-white rounded-xl p-3 shadow-md border border-[#e7eff6]">
+            <TabsList className="flex justify-center flex-wrap gap-3 mb-8 bg-gray-500 rounded-xl p-3 shadow-md border border-[#e7eff6]">
               <TabsTrigger value="articles" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#e74c3c] text-white hover:bg-[#c0392b]">Articles</TabsTrigger>
               <TabsTrigger value="videos" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#4b86b4] text-white hover:bg-[#3a6b9c]">Videos</TabsTrigger>
               <TabsTrigger value="podcasts" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#2a4d69] text-white hover:bg-[#1e3a4d]">Podcasts</TabsTrigger>
