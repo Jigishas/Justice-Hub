@@ -36,7 +36,7 @@ export default function Events() {
                 <span>{event.location}</span>
               </div>
               <p className="text-sm text-[#666] mb-4">{event.desc}</p>
-              <Button className="bg-[#e74c3c] hover:bg-[#c0392b] text-blue-600 w-full">RSVP</Button>
+              <Button className="bg-blue-500 hover:bg-[#c0392b] text-white w-full">RSVP</Button>
             </CardContent>
           </Card>
         ))}
