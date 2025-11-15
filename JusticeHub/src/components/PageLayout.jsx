@@ -45,20 +45,22 @@ export default function PageLayout({ children }) {
               // loading placeholder
               <div className="w-28 h-8 bg-white/10 rounded animate-pulse" />
             ) : user ? (
-              // authenticated view
-              <div className="flex items-center gap-3">
-                <span
-                  className="px-3 py-1 rounded bg-white/10 transition text-sm"
-                >
-                  {user.name ?? user.email ?? "Account"}
-                </span>
-                <button
-                  className="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600 transition"
-                  onClick={logout}
-                >
-                  Sign Out
-                </button>
-              </div>
+              // authenticated view - only show on home page
+              window.location.pathname === '/' && (
+                <div className="flex items-center gap-3">
+                  <span
+                    className="px-3 py-1 rounded bg-white/10 transition text-sm"
+                  >
+                    {user.name ?? user.email ?? "Account"}
+                  </span>
+                  <button
+                    className="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600 transition"
+                    onClick={logout}
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )
             ) : (
               // not authenticated
               <div className="flex gap-3">
