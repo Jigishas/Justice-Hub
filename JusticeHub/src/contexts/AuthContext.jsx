@@ -2,33 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { AuthContext } from '../lib/auth-context-utils';
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    // Initialize from localStorage for immediate display
-    const storedUser = localStorage.getItem('user');
-    const storedRefreshToken = localStorage.getItem('refreshToken');
-    const storedAccessToken = localStorage.getItem('accessToken');
-
-    // Check if tokens exist and are valid
-    if (storedUser && storedRefreshToken && storedAccessToken) {
-      const userData = JSON.parse(storedUser);
-      const refreshTokenExpiry = localStorage.getItem('refreshTokenExpiry');
-
-      // Check if refresh token is still valid (longer expiry)
-      if (refreshTokenExpiry && new Date(refreshTokenExpiry) > new Date()) {
-        return userData;
-      }
-    }
-    return null;
-  });
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const base = import.meta.env.VITE_BASE_URL ?? "";
 
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        const storedRefreshToken = localStorage.getItem('refreshToken');
-        const storedAccessToken = localStorage.getItem('accessToken');
-        const accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
+        const storedRefreshToken = sessionStorage.getItem('refreshToken');
+        const storedAccessToken = sessionStorage.getItem('accessToken');
+        const accessTokenExpiry = sessionStorage.getItem('accessTokenExpiry');
 
         // If we have tokens, try to refresh if access token is expired
         if (storedRefreshToken && storedAccessToken) {
@@ -41,8 +24,8 @@ export const AuthProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${storedRefreshToken}`,
                 },
-                body: JSON.stringify({ refreshToken: storedRefreshToken }),
                 credentials: "include",
               });
 
@@ -51,34 +34,31 @@ export const AuthProvider = ({ children }) => {
                 const newAccessToken = refreshData.accessToken;
                 const newRefreshToken = refreshData.refreshToken;
 
-                // Update stored tokens
-                localStorage.setItem('accessToken', newAccessToken);
-                localStorage.setItem('refreshToken', newRefreshToken);
-                localStorage.setItem('accessTokenExpiry', new Date(Date.now() + 15 * 60 * 1000).toISOString()); // 15 minutes
-                localStorage.setItem('refreshTokenExpiry', new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()); // 7 days
+                // Update stored tokens in sessionStorage
+                sessionStorage.setItem('accessToken', newAccessToken);
+                sessionStorage.setItem('refreshToken', newRefreshToken);
+                sessionStorage.setItem('accessTokenExpiry', new Date(Date.now() + 15 * 60 * 1000).toISOString()); // 15 minutes
+                sessionStorage.setItem('refreshTokenExpiry', new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()); // 7 days
 
                 // Update user data if provided
                 if (refreshData.user) {
                   setUser(refreshData.user);
-                  localStorage.setItem('user', JSON.stringify(refreshData.user));
                 }
               } else {
                 // Refresh failed, clear tokens
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
-                localStorage.removeItem('accessTokenExpiry');
-                localStorage.removeItem('refreshTokenExpiry');
-                localStorage.removeItem('user');
+                sessionStorage.removeItem('accessToken');
+                sessionStorage.removeItem('refreshToken');
+                sessionStorage.removeItem('accessTokenExpiry');
+                sessionStorage.removeItem('refreshTokenExpiry');
                 setUser(null);
               }
             } catch (refreshError) {
               console.error('Token refresh failed:', refreshError);
               // Clear tokens on refresh failure
-              localStorage.removeItem('accessToken');
-              localStorage.removeItem('refreshToken');
-              localStorage.removeItem('accessTokenExpiry');
-              localStorage.removeItem('refreshTokenExpiry');
-              localStorage.removeItem('user');
+              sessionStorage.removeItem('accessToken');
+              sessionStorage.removeItem('refreshToken');
+              sessionStorage.removeItem('accessTokenExpiry');
+              sessionStorage.removeItem('refreshTokenExpiry');
               setUser(null);
             }
           }
@@ -88,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         const res = await fetch(`${base}/api/auth/me`, {
           credentials: "include",
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+            'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`,
           },
         });
 
@@ -96,20 +76,14 @@ export const AuthProvider = ({ children }) => {
           const data = await res.json();
           const userData = data.user ?? null;
           setUser(userData);
-          if (userData) {
-            localStorage.setItem('user', JSON.stringify(userData));
-          } else {
-            localStorage.removeItem('user');
-          }
         } else {
           // Only clear user if it's a 401 (unauthorized), not other errors
           if (res.status === 401) {
             setUser(null);
-            localStorage.removeItem('user');
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            localStorage.removeItem('accessTokenExpiry');
-            localStorage.removeItem('refreshTokenExpiry');
+            sessionStorage.removeItem('accessToken');
+            sessionStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('accessTokenExpiry');
+            sessionStorage.removeItem('refreshTokenExpiry');
           }
           // For other errors (like 404), don't clear user state
         }
@@ -126,14 +100,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData, tokens) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-
-    // Store tokens if provided
+    // Store tokens in memory only - no localStorage
     if (tokens) {
-      localStorage.setItem('accessToken', tokens.accessToken);
-      localStorage.setItem('refreshToken', tokens.refreshToken);
-      localStorage.setItem('accessTokenExpiry', new Date(Date.now() + 15 * 60 * 1000).toISOString()); // 15 minutes
-      localStorage.setItem('refreshTokenExpiry', new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()); // 7 days
+      // Store tokens in memory for this session
+      sessionStorage.setItem('accessToken', tokens.accessToken);
+      sessionStorage.setItem('refreshToken', tokens.refreshToken);
+      sessionStorage.setItem('accessTokenExpiry', new Date(Date.now() + 15 * 60 * 1000).toISOString()); // 15 minutes
+      sessionStorage.setItem('refreshTokenExpiry', new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()); // 7 days
     }
   };
 
@@ -142,16 +115,18 @@ export const AuthProvider = ({ children }) => {
       await fetch(`${base}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`,
+        },
       });
     } catch (error) {
       console.error('Logout failed:', error);
     } finally {
       setUser(null);
-      localStorage.removeItem('user');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('accessTokenExpiry');
-      localStorage.removeItem('refreshTokenExpiry');
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('refreshToken');
+      sessionStorage.removeItem('accessTokenExpiry');
+      sessionStorage.removeItem('refreshTokenExpiry');
       window.location.href = "/auth";
     }
   };
