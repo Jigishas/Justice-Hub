@@ -7,7 +7,6 @@ import { Card, CardContent } from './components/ui/card';
 import { Progress } from './components/ui/progress';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './components/ui/tabs';
 import { useAuth } from './lib/auth-context-utils';
-import { motion } from 'framer-motion';
 
 function App() {
   const { user, loading, logout } = useAuth();
@@ -132,10 +131,14 @@ function App() {
           <div className="flex items-center gap-3">
             <ThemeToggle />
             {user === undefined ? (
-              <div className="w-28 h-8 bg-white/10 rounded animate-pulse" />
+              <div className="w-28 h-8 bg-indigo-600 rounded animate-pulse" />
             ) : user ? (
               <>
-                <span className="text-blue-600 hidden sm:block">Welcome, {user.name ?? user.email ?? "User"}!</span>
+                <span
+                  className="px-3 py-1 rounded bg-blue-400 transition text-sm"
+                >
+                  Welcome, {user.name ?? user.email ?? "User"}
+                </span>
                 <Button onClick={logout} variant="outline" className="border-white text-blue-700 hover:bg-white hover:text-[#2a4d69] dark:border-[#4b86b4] dark:text-[#4b86b4] dark:hover:bg-[#4b86b4] dark:hover:text-white">
                   <FaSignOutAlt className="mr-2" /> Logout
                 </Button>
@@ -157,26 +160,17 @@ function App() {
       {/* Hero Section */}
       <section className="relative bg-cover bg-center text-white text-center py-20" style={{backgroundImage: "linear-gradient(rgba(42,77,105,0.8),rgba(75,134,180,0.8)),url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80')"}}>
         <div className="container mx-auto px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <h1
             className="text-4xl md:text-5xl font-bold mb-4 drop-shadow"
           >
             Together for a More Just World
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          </h1>
+          <p
             className="text-lg md:text-xl max-w-2xl mx-auto mb-8"
           >
             Join our community to learn, act, and make a difference on critical social justice issues affecting our society today.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+          </p>
+          <div
             className="max-w-xl mx-auto flex"
           >
             <input
@@ -193,35 +187,25 @@ function App() {
             >
               <FaPenFancy />
             </Button>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Actions Section */}
       <section className="bg-[#e7eff6] dark:bg-[#1a2a3a] py-12 transition-colors">
         <div className="container mx-auto px-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <h2
             className="text-3xl font-bold text-center text-[#2a4d69] dark:text-[#4b86b4] mb-2 relative"
           >
             Take Action
             <span className="block mx-auto mt-2 w-20 h-1 bg-[#e74c3c] rounded-full"></span>
-          </motion.h2>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          </h2>
+          <div
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8"
           >
-            {(filteredActions.length > 0 ? filteredActions : actionsData).map((action, index) => (
-              <motion.div
+            {(filteredActions.length > 0 ? filteredActions : actionsData).map((action) => (
+              <div
                 key={action.index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
                 className="h-full"
               >
                 <Card className="text-center p-8 flex flex-col items-center shadow-md hover:shadow-xl transition-all duration-300 bg-white dark:bg-[#2a4d69] border-0 h-full">
@@ -239,28 +223,23 @@ function App() {
                     {action.index === 0 ? 'Sign Petitions' : action.index === 1 ? 'Find Opportunities' : action.index === 2 ? 'Donate Now' : 'Share Content'}
                   </Button>
                 </Card>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
-      <section className="container mx-auto px-4 py-12 bg-white dark:bg-[#0f0f0f] transition-colors">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl font-bold text-center text-[#2a4d69] dark:text-[#4b86b4] mb-2 relative"
-        >
-          Featured Causes
-          <span className="block mx-auto mt-2 w-20 h-1 bg-[#e74c3c] rounded-full"></span>
-        </motion.h2>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8"
-        >
-          {(filteredCauses.length > 0 ? filteredCauses : causesData).map((issue, index) => {
+      <section className="py-12 bg-white dark:bg-[#0f0f0f] transition-colors">
+        <div className="container mx-auto px-4">
+          <h2
+            className="text-3xl font-bold text-center text-[#2a4d69] dark:text-[#4b86b4] mb-2 relative"
+          >
+            Featured Causes
+            <span className="block mx-auto mt-2 w-20 h-1 bg-[#e74c3c] rounded-full"></span>
+          </h2>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8"
+          >
+          {(filteredCauses.length > 0 ? filteredCauses : causesData).map((issue) => {
             const images = [
               'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
               'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
@@ -271,12 +250,8 @@ function App() {
             const raised = [32500, 40000, 22500, 35000];
             const goal = 50000;
             return (
-              <motion.div
+              <div
                 key={issue.index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
               >
                 <Card className="overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white dark:bg-[#2a4d69] border-0">
                   <div className="h-40 bg-cover bg-center" style={{backgroundImage: `url('${images[issue.index]}')`}} />
@@ -290,110 +265,83 @@ function App() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Justice Warriors Section */}
       <section className="w-full px-5 py-20 bg-gradient-to-br from-[#1a2a6c] via-[#b21f1f] to-[#fdbb2d] rounded-xl shadow-2xl relative overflow-hidden text-white my-12">
         <div className="absolute inset-0 bg-gradient-to-br from-[#800000] to-[#000080] opacity-60"></div>
         <div className="relative z-10 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <h1
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-5 leading-tight"
             style={{textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}
           >
             Your Voice Can Change The World
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          </h1>
+          <p
             className="text-lg md:text-xl max-w-3xl mx-auto mb-10 font-light"
           >
             In a world where injustice persists, silence is not an option. Stand up, speak out, and be the change you wish to see. Together, we can build a future founded on equality, dignity, and justice for all.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+          <div
             className="flex justify-center flex-wrap gap-4 mb-12"
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
+            <div
               className="flex-1 min-w-48 max-w-xs p-6 bg-black bg-opacity-20 rounded-lg backdrop-blur-md transition-all duration-300 hover:bg-black hover:bg-opacity-30"
             >
               <div className="text-4xl font-bold mb-2">76%</div>
               <div className="text-lg">Of social justice campaigns see real policy impact</div>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
+            </div>
+            <div
               className="flex-1 min-w-48 max-w-xs p-6 bg-black bg-opacity-20 rounded-lg backdrop-blur-md transition-all duration-300 hover:bg-black hover:bg-opacity-30"
             >
               <div className="text-4xl font-bold mb-2">2.3M</div>
               <div className="text-lg">Activists joined global justice movements last year</div>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
+            </div>
+            <div
               className="flex-1 min-w-48 max-w-xs p-6 bg-black bg-opacity-20 rounded-lg backdrop-blur-md transition-all duration-300 hover:bg-black hover:bg-opacity-30"
             >
               <div className="text-4xl font-bold mb-2">148</div>
               <div className="text-lg">Countries with active justice reform movements</div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+          <div
             className="mb-8"
           >
             <a href="https://www.amnesty.org/get-involved/take-action/" className="inline-block px-10 py-4 bg-[#ff6b6b] text-white font-semibold text-lg rounded-full mr-2 transition-all duration-300 hover:bg-transparent hover:scale-105 shadow-lg hover:shadow-xl border-2 border-[#ff6b6b]" target="_blank" rel="noopener noreferrer">Join the Movement</a>
             <a href="#educational-resources" className="inline-block px-10 py-4 bg-transparent border-2 border-white text-white font-semibold text-lg rounded-full transition-all duration-300 hover:bg-white hover:text-[#1a2a6c] hover:scale-105 shadow-lg hover:shadow-xl">Learn More</a>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+          <div
             className="max-w-3xl mx-auto p-8 italic text-lg border-l-4 border-[#ff6b6b] bg-black bg-opacity-20 rounded-r-lg text-left"
           >
             "Injustice anywhere is a threat to justice everywhere. We are caught in an inescapable network of mutuality, tied in a single garment of destiny. Whatever affects one directly, affects all indirectly."
             <div className="text-right mt-4 font-semibold not-italic">- Martin Luther King Jr.</div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Resources Section */}
       <section id="educational-resources" className="bg-gradient-to-br from-[#e7eff6] to-[#d4e4f7] dark:from-[#1a2a3a] dark:to-[#0f0f0f] py-16 shadow-inner transition-colors">
         <div className="container mx-auto px-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <h2
             className="text-4xl font-bold text-center text-[#2a4d69] dark:text-[#4b86b4] mb-4 relative"
           >
             Educational Resources
             <span className="block mx-auto mt-3 w-24 h-1.5 bg-[#e74c3c] rounded-full shadow-sm"></span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          </h2>
+          <p
             className="text-center text-[#666] dark:text-[#e7eff6] mb-8 max-w-2xl mx-auto text-lg"
           >
             Explore our curated collection of educational materials to deepen your understanding of social justice issues and learn how to take action.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          </p>
+          <div>
             <Tabs defaultValue="articles" className="w-full mt-10">
               <TabsList className="flex justify-center flex-wrap gap-3 mb-8 bg-white dark:bg-[#2a4d69] rounded-xl p-3 shadow-md border border-[#e7eff6] dark:border-[#4b86b4] backdrop-blur-sm">
                 <TabsTrigger value="articles" className="px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-gray-200 dark:bg-[#1a2a3a] text-gray-800 dark:text-[#e7eff6] hover:bg-gray-300 dark:hover:bg-[#2a4d69] hover:scale-105 data-[state=active]:bg-[#e74c3c] data-[state=active]:text-blue-500 data-[state=active]:shadow-lg data-[state=active]:border-2 data-[state=active]:border-[#c0392b] data-[state=active]:scale-105">Articles</TabsTrigger>
@@ -403,19 +351,12 @@ function App() {
                 <TabsTrigger value="toolkits" className="px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-gray-200 dark:bg-[#1a2a3a] text-gray-800 dark:text-[#e7eff6] hover:bg-gray-300 dark:hover:bg-[#2a4d69] hover:scale-105 data-[state=active]:bg-[#fd7e14] data-[state=active]:text-blue-500 data-[state=active]:shadow-lg data-[state=active]:border-2 data-[state=active]:border-[#d8590c] data-[state=active]:scale-105">Toolkits</TabsTrigger>
               </TabsList>
             <TabsContent value="articles">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
+              <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {(filteredResources.articles.length > 0 ? filteredResources.articles : resourcesData.articles).map((article, index) => (
-                  <motion.div
+                {(filteredResources.articles.length > 0 ? filteredResources.articles : resourcesData.articles).map((article) => (
+                  <div
                     key={article.index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
                   >
                     <Card className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white dark:bg-[#2a4d69] rounded-xl overflow-hidden">
                       <CardContent className="p-6">
@@ -429,24 +370,17 @@ function App() {
                         </Button>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </TabsContent>
             <TabsContent value="videos">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
+              <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {(filteredResources.videos.length > 0 ? filteredResources.videos : resourcesData.videos).map((video, index) => (
-                  <motion.div
+                {(filteredResources.videos.length > 0 ? filteredResources.videos : resourcesData.videos).map((video) => (
+                  <div
                     key={video.index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
                   >
                     <Card className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white dark:bg-[#2a4d69] rounded-xl overflow-hidden">
                       <CardContent className="p-6">
@@ -460,24 +394,17 @@ function App() {
                         </Button>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </TabsContent>
             <TabsContent value="podcasts">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
+              <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {(filteredResources.podcasts.length > 0 ? filteredResources.podcasts : resourcesData.podcasts).map((podcast, index) => (
-                  <motion.div
+                {(filteredResources.podcasts.length > 0 ? filteredResources.podcasts : resourcesData.podcasts).map((podcast) => (
+                  <div
                     key={podcast.index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
                   >
                     <Card className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white dark:bg-[#2a4d69] rounded-xl overflow-hidden">
                       <CardContent className="p-6">
@@ -491,24 +418,17 @@ function App() {
                         </Button>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </TabsContent>
             <TabsContent value="books">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
+              <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {(filteredResources.books.length > 0 ? filteredResources.books : resourcesData.books).map((book, index) => (
-                  <motion.div
+                {(filteredResources.books.length > 0 ? filteredResources.books : resourcesData.books).map((book) => (
+                  <div
                     key={book.index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
                   >
                     <Card className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white dark:bg-[#2a4d69] rounded-xl overflow-hidden">
                       <CardContent className="p-6">
@@ -522,24 +442,17 @@ function App() {
                         </Button>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </TabsContent>
             <TabsContent value="toolkits">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
+              <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {(filteredResources.toolkits.length > 0 ? filteredResources.toolkits : resourcesData.toolkits).map((toolkit, index) => (
-                  <motion.div
+                {(filteredResources.toolkits.length > 0 ? filteredResources.toolkits : resourcesData.toolkits).map((toolkit) => (
+                  <div
                     key={toolkit.index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
                   >
                     <Card className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white dark:bg-[#2a4d69] rounded-xl overflow-hidden">
                       <CardContent className="p-6">
@@ -553,12 +466,12 @@ function App() {
                         </Button>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </TabsContent>
-          </Tabs>
-        </motion.div>
+            </Tabs>
+          </div>
         </div>
       </section>
 
@@ -619,7 +532,7 @@ function App() {
         </div>
       </footer>
     </div>
-  );
-}
+  )};
+
 
 export default App;
