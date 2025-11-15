@@ -48,12 +48,12 @@ export default function PageLayout({ children }) {
               // authenticated view - show on every page
               <div className="flex items-center gap-3">
                 <span
-                  className="px-3 py-1 rounded bg-white/10 transition text-sm"
+                  className="px-3 py-1 rounded bg-blue-400 transition text-sm"
                 >
                   Welcome, {user.name ?? user.email ?? "User"}
                 </span>
                 <button
-                  className="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600 transition"
+                  className="px-3 py-1 rounded bg-red-500 text-blue-600 text-sm hover:bg-red-600 transition"
                   onClick={logout}
                 >
                   Logout
@@ -84,7 +84,7 @@ export default function PageLayout({ children }) {
       {/* Auth Modal */}
       {showAuthModal && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-blue-700"
           onClick={closeAuth} // click outside to close
         >
           <div
@@ -92,7 +92,7 @@ export default function PageLayout({ children }) {
             onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
           >
             <button
-              className="absolute -top-3 -right-3 bg-white text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow"
+              className="absolute -top-3 -right-3 bg-white text-blue-700 rounded-full w-8 h-8 flex items-center justify-center shadow"
               onClick={closeAuth}
               aria-label="Close auth"
             >

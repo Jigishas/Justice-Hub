@@ -14,13 +14,13 @@ export default function Resources() {
             <span className="block mx-auto mt-3 w-24 h-1.5 bg-[#e74c3c] rounded-full shadow-sm"></span>
           </h2>
           <p className="text-center text-[#666] mb-8 max-w-2xl mx-auto text-lg">Explore our curated collection of educational materials to deepen your understanding of social justice issues and learn how to take action.</p>
-          <Tabs defaultValue="articles" className="w-full mt-10">
-            <TabsList className="flex justify-center flex-wrap gap-3 mb-8 bg-gray-500 rounded-xl p-3 shadow-md border border-[#e7eff6]">
-              <TabsTrigger value="articles" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#e74c3c] text-white hover:bg-[#c0392b]">Articles</TabsTrigger>
-              <TabsTrigger value="videos" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#4b86b4] text-white hover:bg-[#3a6b9c]">Videos</TabsTrigger>
-              <TabsTrigger value="podcasts" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#2a4d69] text-white hover:bg-[#1e3a4d]">Podcasts</TabsTrigger>
-              <TabsTrigger value="books" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#28a745] text-white hover:bg-[#218838]">Books</TabsTrigger>
-              <TabsTrigger value="toolkits" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#fd7e14] text-white hover:bg-[#e8680f]">Toolkits</TabsTrigger>
+          <Tabs defaultValue="articles" className="w-full justify-center">
+            <TabsList className="flex justify-center flex-wrap gap-3 mb-8 bg-white rounded-xl p-3 shadow-md border border-[#e7eff6]">
+              <TabsTrigger value="articles" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#e74c3c] text-blue-600 hover:bg-[#c0392b]">Articles</TabsTrigger>
+              <TabsTrigger value="videos" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#4b86b4] text-blue-600 hover:bg-[#3a6b9c]">Videos</TabsTrigger>
+              <TabsTrigger value="podcasts" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#2a4d69] text-blue-600 hover:bg-[#1e3a4d]">Podcasts</TabsTrigger>
+              <TabsTrigger value="books" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#28a745] text-blue-600 hover:bg-[#218838]">Books</TabsTrigger>
+              <TabsTrigger value="toolkits" className="px-6 py-2 rounded-lg font-medium transition-all bg-[#fd7e14] text-blue-600 hover:bg-[#e8680f]">Toolkits</TabsTrigger>
             </TabsList>
             <TabsContent value="articles">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

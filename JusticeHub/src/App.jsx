@@ -135,18 +135,18 @@ function App() {
               <div className="w-28 h-8 bg-white/10 rounded animate-pulse" />
             ) : user ? (
               <>
-                <span className="text-white hidden sm:block">Welcome, {user.name ?? user.email ?? "User"}!</span>
-                <Button onClick={logout} variant="outline" className="border-white text-white hover:bg-white hover:text-[#2a4d69] dark:border-[#4b86b4] dark:text-[#4b86b4] dark:hover:bg-[#4b86b4] dark:hover:text-white">
+                <span className="text-blue-600 hidden sm:block">Welcome, {user.name ?? user.email ?? "User"}!</span>
+                <Button onClick={logout} variant="outline" className="border-white text-blue-700 hover:bg-white hover:text-[#2a4d69] dark:border-[#4b86b4] dark:text-[#4b86b4] dark:hover:bg-[#4b86b4] dark:hover:text-white">
                   <FaSignOutAlt className="mr-2" /> Logout
                 </Button>
               </>
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-[#2a4d69] dark:border-[#4b86b4] dark:text-[#4b86b4] dark:hover:bg-[#4b86b4] dark:hover:text-white">Sign In</Button>
+                  <Button variant="outline" className="border-white text-blue-600 hover:bg-white hover:text-[#2a4d69] dark:border-[#4b86b4] dark:text-[#4b86b4] dark:hover:bg-[#4b86b4] dark:hover:text-white">Sign In</Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="destructive" className="bg-[#e74c3c] hover:bg-[#c0392b] text-white">Join Now</Button>
+                  <Button variant="destructive" className="bg-[#e74c3c] hover:bg-[#c0392b] text-blue-600">Join Now</Button>
                 </Link>
               </>
             )}
@@ -233,7 +233,7 @@ function App() {
                   <p className="text-sm text-[#666] dark:text-[#e7eff6] mb-4 flex-1">{action.desc}</p>
                   <Button
                     onClick={() => window.open(action.index === 0 || action.index === 1 ? 'https://www.amnestykenya.org/' : action.index === 2 ? 'https://support.eji.org/give/153413/#!/donation/checkout' : 'https://www.change.org/c/ke', '_blank')}
-                    className="mt-auto w-full"
+                    className="mt-auto w-full text-blue-600"
                     variant="destructive"
                   >
                     {action.index === 0 ? 'Sign Petitions' : action.index === 1 ? 'Find Opportunities' : action.index === 2 ? 'Donate Now' : 'Share Content'}
