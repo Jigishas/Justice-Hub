@@ -54,42 +54,24 @@ jobs:
       - name: Build frontend
         run: cd JusticeHub && npm run build
 
-  build-and-push:
-    needs: [test-backend, test-frontend]
+  deploy-backend:
+    needs: test-backend
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: ./Backend/package-lock.json
 
-      - name: Build and push backend image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./Backend
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/justicehub-backend:latest
+      - name: Build backend
+        run: cd Backend && npm install
 
-      - name: Build and push frontend image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./JusticeHub
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/justicehub-frontend:latest
-
-  deploy-backend:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
       - name: Deploy backend to Render
         run: |
           curl -X POST \
@@ -98,10 +80,23 @@ jobs:
             https://api.render.com/v1/services/${{ secrets.RENDER_BACKEND_SERVICE_ID }}/deploys
 
   deploy-frontend:
-    needs: build-and-push
+    needs: test-frontend
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: ./JusticeHub/package-lock.json
+
+      - name: Build frontend
+        run: cd JusticeHub && npm install && npm run build
+
       - name: Deploy frontend to Vercel
         run: |
           curl -X POST \

@@ -133,14 +133,14 @@ function App() {
             ) : user ? (
               <>
                 <span className="text-white">Welcome, {user.name ?? user.email ?? "User"}!</span>
-                <Button onClick={logout} variant="outline" className="border-white text-white hover:bg-white hover:text-[#2a4d69]">
+                <Button onClick={logout} variant="outline" className="border-white text-[#2a4d69] hover:bg-white hover:text-[#2a4d69]">
                   <FaSignOutAlt className="mr-2" /> Logout
                 </Button>
               </>
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-[#2a4d69]">Sign In</Button>
+                  <Button variant="outline" className="border-white text-[#2a4d69] hover:bg-white hover:text-[#2a4d69]">Sign In</Button>
                 </Link>
                 <Link to="/register">
                   <Button className="bg-[#e74c3c] hover:bg-[#c0392b] text-white">Join Now</Button>
