@@ -152,7 +152,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('accessTokenExpiry');
       localStorage.removeItem('refreshTokenExpiry');
-      window.location.href = "/";
+      window.location.href = "/auth";
     }
   };
 
